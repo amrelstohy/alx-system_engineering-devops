@@ -6,10 +6,11 @@ sudo ufw allow 'Nginx HTTP'
 sudo chmod -R 755 /var/www
 echo "Hello World!" > /var/www/html/index.nginx-debian.html
 sudo service nginx start
-line_number=$(grep -n "location" /etc/nginx/sites_enabled/default | head -n 1 | cut -d ":" -f 1) - 1
-sed -i '${line_number}c\
-	\
-	location \redirect_me {\
-	return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\
-	}\
-	\' /etc/nginx/sites_enabled/default
+line_number=$(grep -n "location" /etc/nginx/sites-enabled/default | head -n 1 | cut -d ":" -f 1)
+((line_number--))
+sed -i "${line_number}i\\
+	\\
+        location /redirect_me {\\
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\\
+        }\\
+" /etc/nginx/sites-enabled/default
