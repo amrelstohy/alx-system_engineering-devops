@@ -21,6 +21,7 @@ backend myservers\\
 	server 356098-web-01 100.24.238.252:80 check\\
 	server 356098-web-02 35.174.207.202:80 check" /etc/haproxy/haproxy.cfg
 fi
+sudo echo "ENABLED=1" >> /etc/default/haproxy
 sudo service haproxy start
 sudo service haproxy restart
 
