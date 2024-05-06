@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#Install and configure HAproxy
+sudo apt-get install --no-install-recommends software-properties-common
+sudo add-apt-repository ppa:vbernat/haproxy-2.0
+sudo apt-get install haproxy=2.0.\*
+
+frontend=$(grep "frontend" /etc/haproxy/haproxy.cfg)
+if [[ ${frontend} == '' ]]; then
+	line_number=$(grep -n "defaults" /etc/haproxy/haproxy.cfg | head -n 1 | cut -d ":" -f 1)
+	((line_number--))
+	sed "${line_number}i\\
+\\
+frontend http_front\\
+	bind *:80\\
+	mode http\\
+	default_backend myservers\\
+\\
+backend http_back\\
+	mode http\\
+	balance roundrobin\\
+	server 356098-web-01 100.24.238.252:80 check\\
+	server 356098-web-02 35.174.207.202:80 check" /etc/nginx/sites-enabled/default
+fi
+
