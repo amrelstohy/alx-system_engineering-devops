@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 #Install and configure HAproxy
-sudo apt-get install --no-install-recommends software-properties-common
-sudo add-apt-repository ppa:vbernat/haproxy-2.0
-sudo apt-get install haproxy=2.0.\*
+sudo apt-get update
+sudo apt-get install --no-install-recommends software-properties-common -y
+sudo add-apt-repository ppa:vbernat/haproxy-2.9 -y
+sudo apt-get update
+sudo apt-get install haproxy -y
 
 frontend=$(grep "frontend" /etc/haproxy/haproxy.cfg)
 if [[ ${frontend} == '' ]]; then
