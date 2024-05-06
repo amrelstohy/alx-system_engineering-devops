@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Installs, configures, and starts the server
+sudo apt-get update -y
+sudo apt-get install nginx -y
+sudo ufw allow 'Nginx HTTP'
+sudo chmod -R 755 /var/www
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+re=$(grep "redirect_me" /etc/nginx/sites-enabled/default)
+sudo service nginx start
+if [[ ${re} == '' ]]; then
+	line_number=$(grep -n "root" /etc/nginx/sites-enabled/default | head -n 1 | cut -d ":" -f 1)
+	((line_number++))
+	sed -i "${line_number}i\\
+\\
+	location /redirect_me {\\
+		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\\
+	}" /etc/nginx/sites-enabled/default
+fi 
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+error=$(grep "error_page 404" /etc/nginx/sites-enabled/default)
+if [[ ${error} == '' ]]; then
+	line_number=$(grep -n "root" /etc/nginx/sites-enabled/default | head -n 1 | cut -d ":" -f 1)
+	((line_number++))
+	sed -i "${line_number}i\\
+\\
+	error_page 404 /404.html;\\
+	location = /404.html {\\
+		root /var/www/html;\\
+		internal;\\
+	}" /etc/nginx/sites-enabled/default
+fi
+header=$(grep "add_header X-Served-By" /etc/nginx/sites-enabled/default)
+if [[ ${header} == '' ]]; then
+	line_number=$(grep -n "root" /etc/nginx/sites-enabled/default | head -n 1 | cut -d ":" -f 1)
+        ((line_number++))
+	sed -i "${line_number}i\\
+\\
+        add_header X-Served-By \$hostname;" /etc/nginx/sites-enabled/default
+fi
+sudo service nginx restart
