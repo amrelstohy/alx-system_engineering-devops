@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#Bash script that will display information about subdomains.
+subdomains="www lb-01 web-01 web-02"
+func() {
+        if [ $# -eq 1 ]; then
+		for subdomain in $subdomains
+		do
+			local type=($(dig "$subdomain.$1" +noall +answer | awk '{print $4}'))
+			local distination=($(dig "$subdomain.$1" +noall +answer | awk '{print $5}'))
+			echo "The subdomain $subdomain is a $type record and points to $distination"
+		done
+	else
+		local type=($(dig "$2.$1" +noall +answer | awk '{print $4}'))
+		local distination=($(dig "$2.$1" +noall +answer | awk '{print $5}'))
+		echo "The subdomain $2 is a $type record and points to $distination"
+        fi
+}
+func $1 $2
