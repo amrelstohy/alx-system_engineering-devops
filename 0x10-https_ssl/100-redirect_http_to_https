@@ -1,0 +1,22 @@
+defaults
+        mode  http
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+
+frontend www
+        bind *:80
+        mode http
+        http-request redirect scheme https code 301 unless { ssl_fc }
+        http-request set-header X_Forwarded-Proto http
+        default_backend myservers
+
+frontend www_secure
+        bind *:443 ssl crt /etc/haproxy/certs/www.amrelstohyonline.me.pem
+        http-request set-header X_Forwarded-Proto https
+        default_backend myservers
+
+backend myservers
+        balance roundrobin
+        server 356098-web-01 100.24.238.252:80 check
+        server 356098-web-02 35.174.207.202:80 check
