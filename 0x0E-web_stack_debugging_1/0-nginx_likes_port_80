@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 #Bash script that configures a server
 sudo ufw allow 'Nginx HTTP'
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 sudo service nginx start
+sudo service nginx restart
