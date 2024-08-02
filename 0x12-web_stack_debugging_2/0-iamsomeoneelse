@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
 
-whoami
+if [ $# -eq 0 ]; then
+	whoami
+else
+	su $1
+	whoami
+fi
