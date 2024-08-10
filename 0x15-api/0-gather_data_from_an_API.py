@@ -12,10 +12,10 @@ if __name__ == "__main__":
     id = sys.argv[1]
     print(sys.argv[0])
     print(id)
-    name = requests.get('https://jsonplaceholder.typicode.com'
+    n = requests.get('https://jsonplaceholder.typicode.com'
                         f'/users?id={id}').json()
 
-    name = name[0]["name"]
+    n = n[0]["name"]
     x = requests.get('https://jsonplaceholder.typicode.com/'
                      f'todos?userId={id}')
     tasks = x.json()
@@ -24,5 +24,5 @@ if __name__ == "__main__":
             count += 1
             task += i['title'] + '\n'
 
-    print(f"Employee {name} is done with tasks({count}/{len(tasks)}):\n"
+    print(f"Employee {n} is done with tasks({count}/{len(tasks)}):\n"
           + task, end=(''))
