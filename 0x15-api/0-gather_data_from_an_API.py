@@ -20,7 +20,7 @@ if __name__ == "__main__":
     for i in tasks:
         if i['completed'] is True:
             count += 1
-            task += i['title'] + '\n'
+            task += '   ' + i['title'] + '\n'
 
     print(f"Employee {n} is done with tasks({count}/{len(tasks)}):\n"
           + task, end=(''))
