@@ -13,7 +13,7 @@ if __name__ == "__main__":
     print(sys.argv[0])
     print(id)
     n = requests.get('https://jsonplaceholder.typicode.com'
-                        f'/users?id={id}').json()
+                     f'/users?id={id}').json()
 
     n = n[0]["name"]
     x = requests.get('https://jsonplaceholder.typicode.com/'
