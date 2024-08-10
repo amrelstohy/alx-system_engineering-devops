@@ -21,7 +21,7 @@ if __name__ == "__main__":
         if i['completed'] is True:
             count += 1
             task.append(i["title"])
-            
+
     print(f"Employee {n} is done with tasks({count}/{len(tasks)}):")
     for i in task:
-        print(f"     {i}")
+        print(f"	 {i}")
