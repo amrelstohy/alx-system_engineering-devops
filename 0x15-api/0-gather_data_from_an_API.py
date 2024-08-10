@@ -10,6 +10,8 @@ if __name__ == "__main__":
     count = 0
     task = ""
     id = sys.argv[1]
+    print(sys.argv[0])
+    print(id)
     name = requests.get('https://jsonplaceholder.typicode.com'
                         f'/users?id={id}').json()
 
