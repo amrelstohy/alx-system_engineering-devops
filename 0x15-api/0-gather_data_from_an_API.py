@@ -8,7 +8,7 @@ if __name__ == "__main__":
     import sys
 
     count = 0
-    task = ""
+    task = []
     id = sys.argv[1]
     n = requests.get('https://jsonplaceholder.typicode.com'
                      f'/users/{id}').json()
@@ -16,10 +16,12 @@ if __name__ == "__main__":
     x = requests.get('https://jsonplaceholder.typicode.com/'
                      f'todos?userId={id}')
     tasks = x.json()
+
     for i in tasks:
         if i['completed'] is True:
             count += 1
-            task += '     ' + i['title'] + '\n'
-
-    print(f"Employee {n} is done with tasks({count}/{len(tasks)}):" +
-          task, end=(''))
+            task.append(i["title"])
+            
+    print(f"Employee {n} is done with tasks({count}/{len(tasks)}):")
+    for i in task:
+        print(f"     {i}")
