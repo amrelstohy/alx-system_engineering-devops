@@ -11,9 +11,8 @@ if __name__ == "__main__":
     task = ""
     id = sys.argv[1]
     n = requests.get('https://jsonplaceholder.typicode.com'
-                     f'/users?id={id}').json()
-
-    n = n[0]["name"]
+                     f'/users/{id}').json()
+    n = n.get("name")
     x = requests.get('https://jsonplaceholder.typicode.com/'
                      f'todos?userId={id}')
     tasks = x.json()
