@@ -21,5 +21,5 @@ if __name__ == "__main__":
             count += 1
             task += '     ' + i['title'] + '\n'
 
-    print(f"Employee {n} is done with tasks({count}/{len(tasks)}):" + 
+    print(f"Employee {n} is done with tasks({count}/{len(tasks)}):" +
           task, end=(''))
