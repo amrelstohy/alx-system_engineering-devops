@@ -17,8 +17,7 @@ if __name__ == '__main__':
                      f'todos?userId={userid}').json()
 
     with open(f'{userid}.csv', mode='w', newline='') as file:
-
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         for i in y:
-            csv.writer(file).writerow([userid, username,
-                                      i['completed'], i['title']])
+            writer.writerow([userid, username, i['completed'], i['title']])
         file.close()
