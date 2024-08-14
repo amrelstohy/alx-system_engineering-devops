@@ -13,6 +13,6 @@ def number_of_subscribers(subreddit):
         data = requests.get(f'https://www.reddit.com/r/{subreddit}/'
                             'about.json', allow_redirects=False).content
         data = json.loads(data)
-        return data['data']['subscribers']
+        return int(data['data']['subscribers'])
     except Exception:
         return 0
