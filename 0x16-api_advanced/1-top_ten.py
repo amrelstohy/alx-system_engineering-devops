@@ -11,7 +11,7 @@ def top_ten(subreddit):
     data = requests.get(url, allow_redirects=False)
 
     if data.status_code == 200:
-        for i in range(1, 11):
+        for i in range(10):
             print(data.json()['data']['children'][i]['data']['title'])
     else:
         print("None")
