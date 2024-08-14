@@ -8,7 +8,9 @@ import requests
 
 
 def number_of_subscribers(subreddit):
-
+    """
+    this function counts number of sub
+    """
     data = requests.get(f'https://www.reddit.com/r/{subreddit}/'
                         'about.json', allow_redirects=False)
     if data.status_code == 200:
