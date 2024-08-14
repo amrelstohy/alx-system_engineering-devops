@@ -11,8 +11,9 @@ def number_of_subscribers(subreddit):
     """
     this function counts number of sub
     """
+    headers = {"User-Agent": "python-requests/2.22.0"}
     data = requests.get(f'https://www.reddit.com/r/{subreddit}/'
-                        'about.json', allow_redirects=False)
+                        'about.json', headers=headers, allow_redirects=False)
     if data.status_code == 200:
         data = data.json()
         return data['data']['subscribers']
