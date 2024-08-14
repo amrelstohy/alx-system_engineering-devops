@@ -11,7 +11,7 @@ import requests
 def number_of_subscribers(subreddit):
     try:
         data = requests.get(f'https://www.reddit.com/r/{subreddit}/'
-                            'about.json').content
+                            'about.json', allow_redirects=False).content
         data = json.loads(data)
         return data['data']['subscribers']
     except Exception:
