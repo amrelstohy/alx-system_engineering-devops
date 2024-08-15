@@ -4,7 +4,7 @@ sudo apt-get update -y
 sudo apt-get install nginx -y
 sudo ufw allow 'Nginx HTTP'
 sudo chmod -R 755 /var/www
-echo "Hello World!" > /var/www/html/index.nginx-debian.html
+sudo echo "Hello World!" > /var/www/html/index.nginx-debian.html
 re=$(grep "redirect_me" /etc/nginx/sites-enabled/default)
 sudo service nginx start
 if [[ ${re} == '' ]]; then
@@ -16,7 +16,7 @@ if [[ ${re} == '' ]]; then
 		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\\
 	}" /etc/nginx/sites-enabled/default
 fi
-echo "Ceci n'est pas une page" > /var/www/html/404.html
+sudo echo "Ceci n'est pas une page" > /var/www/html/404.html
 line_number=$(grep -n "root" /etc/nginx/sites-enabled/default | head -n 1 | cut -d ":" -f 1)
 ((line_number++))
 sed -i "${line_number}i\\
